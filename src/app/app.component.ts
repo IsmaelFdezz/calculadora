@@ -6,54 +6,85 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  display: string = '0'
-  firstValue: number | null = null;
-  operation: string | null = null;
+  display: string = '0';
+  currentInput: string = '';
+  calculation: (number | string)[] = [];
+  result: number | null = null;
 
   game: boolean = false;
 
-  numClick(num: number) {
-    if (this.display === '0') {
-      this.display = num.toString()
-    } else {
-      this.display = `${this.display}${num}`;
+  handleNumberInput(num: number) {
+    if (this.result !== null) {
+      this.result = null;
+      this.display = '0';
+      this.currentInput = '';
+      this.calculation = [];
     }
+
+    this.currentInput += num.toString();
+    this.display = this.currentInput;
+    console.log('Número seleccionado:', num);
   }
 
   clear() {
-    this.display = '0'
+    this.display = '0';
+    this.currentInput = '';
+    this.calculation = [];
+    this.result = null;
+    console.log('Limpiando...');
   }
 
-  selectOperation(operation: string) {
-    this.firstValue = parseFloat(this.display);
-    this.operation = operation;
-    this.display = ' ';
+  handleOperation(operation: string) {
+    if (this.currentInput !== '') {
+      this.calculation.push(parseFloat(this.currentInput));
+      this.calculation.push(operation);
+      this.currentInput = '';
+      console.log('Operación seleccionada:', operation);
+    }
   }
 
   calculate() {
-    const a = this.firstValue;
-    const b = parseFloat(this.display);
+    if (this.currentInput !== '') {
+      this.calculation.push(parseFloat(this.currentInput));
+      this.currentInput = '';
+    }
 
-    let result;
+    let result: number | null = null;
+    let operator: string | null = null;
 
-      if (this.operation === 'x') {
-        result = a * b;
-      } 
-      else if (this.operation === '/') {
-        result = a / b;
+    for (const item of this.calculation) {
+      if (typeof item === 'number') {
+        if (result === null) {
+          result = item;
+        } else if (operator !== null) {
+          if (operator === '+') {
+            result += item;
+          } else if (operator === '-') {
+            result -= item;
+          } else if (operator === 'x') {
+            result *= item;
+          } else if (operator === '/') {
+            result /= item;
+          }
+        }
+      } else if (typeof item === 'string') {
+        operator = item;
       }
-      else if (this.operation === '+') {
-        result = a + b;
-      }
-      else if (this.operation === 's') {
-        result = a - b;
-      }
+    }
 
-      this.firstValue = result;
-      this.display = result?.toString()
+    if (result !== null) {
+      this.display = result.toString();
+      this.result = result;
+      console.log('Resultado:', result);
+    }
   }
 
   showGame() {
     this.game = !this.game;
+    console.log('Mostrando juego...');
+  }
+
+  handleGameLost(event: boolean) {
+    this.game = false;
   }
 }
