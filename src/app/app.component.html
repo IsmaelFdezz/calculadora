@@ -20,12 +20,13 @@
         </div>
     
         <div class="operators-container">
-            <div class="button button-m" (click)="handleOperation('x')">x</div>
-            <div class="button button-d" (click)="handleOperation('/')">/</div>
-            <div class="button button-a" (click)="handleOperation('+')">+</div>
-            <div class="button button-s" (click)="handleOperation('-')">-</div>
+            <div class="button button-operator" (click)="handleOperation('x')">x</div>
+            <div class="button button-operator" (click)="handleOperation('/')">/</div>
+            <div class="button button-operator" (click)="handleOperation('+')">+</div>
+            <div class="button button-operator" (click)="handleOperation('-')">-</div>
+            <div class="button button-operator" (click)="handleDecimal()">.</div>
+            <div class="button button-branch">Cassio</div>
+            <div class="button button-operator" (click)="showGame()">?</div>
         </div>
     </div>
-
-    <button class="gameButton" (click)="showGame()">Juego</button>
 </main>

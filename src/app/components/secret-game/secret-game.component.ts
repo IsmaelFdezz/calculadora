@@ -9,12 +9,18 @@ export class SecretGameComponent implements OnInit {
 
   jumping: boolean = false;
 
+  jump: HTMLAudioElement = new Audio ('assets/sounds/jump.mp3');
+  lose: HTMLAudioElement = new Audio ('assets/sounds/lose-game.mp3');
+
+  timesBlock: number = 0
+
   @Input() game: boolean;
   @Output() gameLost = new EventEmitter<boolean>();
 
   @HostListener('document:keydown.space', ['$event'])
   handleSpaceKey(event: KeyboardEvent) {
     if (event.keyCode === 32) {
+      this.jump.play()
       this.jumping = true
       setTimeout(() => {
         this.jumping = false;
@@ -31,7 +37,8 @@ export class SecretGameComponent implements OnInit {
   }
 
   loseGame() {
-    alert('Perdiste!!')
+    this.lose.play( )
+    alert('Perdiste!!' + '     Puntaje:' + ' ' + this.timesBlock)
 
     this.gameLost.emit(true);
   }
@@ -50,6 +57,13 @@ export class SecretGameComponent implements OnInit {
     const blockWidth = block.clientWidth;
     const blockHeight = block.clientHeight;
 
+    const margenDeError = 2;
+
+    if (Math.abs(blockX - characterX) <= margenDeError) {
+      this.timesBlock ++;
+      console.log(this.timesBlock)
+    }
+
     if (
       characterX < blockX + blockWidth &&
       characterX + characterWidth > blockX &&
@@ -60,6 +74,7 @@ export class SecretGameComponent implements OnInit {
     }
 
     requestAnimationFrame(this.updateGame.bind(this));
+
   }
 
 }
