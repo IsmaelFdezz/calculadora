@@ -13,7 +13,7 @@
 .calculator {
     display: flex;
     flex-direction: column;
-    background-color: rgb(146, 146, 216);
+    background-color: #ff69b4;
     width: 200px;
     align-items: center;
     gap: 22px;
@@ -30,7 +30,7 @@
     justify-content: center;
     font-size: 26px;
     font-family: monospace;
-    background-color: rgb(117 117 227);
+    background-color: #b0c4de;
     box-shadow: 3px 3px 0px 1px rgb(0, 0, 0)
 }
 
@@ -75,7 +75,7 @@
     grid-area: f;
     width: 100px;
     cursor: initial;
-    background-color: rgb(146, 146, 216);
+    background-color: #4682b4;
     box-shadow: none;
     border: 2px solid black;
 }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { SecretGameComponent } from './components/secret-game/secret-game.component';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,8 @@ export class AppComponent {
 
   game: boolean = false;
 
+  @ViewChild(SecretGameComponent, {static: false}) secretGameComponent: SecretGameComponent
+
   handleNumberInput(num: number) {
     this.fart1.play()
 
@@ -35,6 +38,12 @@ export class AppComponent {
     console.log('Número seleccionado:', num);
   }
 
+  handlejumpButton(){
+    if (this.secretGameComponent) {
+      this.secretGameComponent.handleJump();
+
+    }
+  }
   
   handleDecimal() {
     this.fart2.play()

@@ -17,6 +17,14 @@ export class SecretGameComponent implements OnInit {
   @Input() game: boolean;
   @Output() gameLost = new EventEmitter<boolean>();
 
+  handleJump() {
+    this.jump.play()
+      this.jumping = true
+      setTimeout(() => {
+        this.jumping = false;
+      }, 500)
+  }
+
   @HostListener('document:keydown.space', ['$event'])
   handleSpaceKey(event: KeyboardEvent) {
     if (event.keyCode === 32) {
