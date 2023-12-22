@@ -1,6 +1,4 @@
 <main class="main">
-    <h1 class="title">Calculadora</h1>
-
     <div class="calculator">
         <div class="display"><div class="game" *ngIf="game"><app-secret-game [game]="game" (gameLost)="handleGameLost($event)"></app-secret-game></div> <span class="display-numbers" *ngIf="!game">{{ display }}</span></div>
 
